@@ -1,0 +1,15 @@
+# Our Docuseal (signature of the lease), on the API server.
+# Reachable only from this machine; the public address goes through the reverse proxy.
+services:
+  docuseal:
+    build: .
+    image: cyruss-docuseal:3.3.2
+    container_name: docuseal
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3005:3000"
+    environment:
+      HOST: sign.cyruss.ai
+      FORCE_SSL: "true"
+    volumes:
+      - ./data:/data
